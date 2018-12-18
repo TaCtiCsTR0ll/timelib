@@ -1,7 +1,8 @@
 /**
+ * Autor: Sebastian Greger
+ * Datum: 18.12.2018
  *
- *
- *
+ * Beschreibung: Timelib!
  **/
 
 #include <stdio.h>
