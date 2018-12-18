@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-const int month[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+const int monthDays[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
 /**
  *
@@ -71,13 +71,20 @@ int isLeapyear(int year)
 **/
 int get_days_for_month(int month, int year)
 {
+    int daysOfMonth = monthDays[month-1];
 
+    if(isLeapyear(year) == 1 && month == 2)
+    {
+        daysOfMonth++;
+    }
+
+    return daysOfMonth;
 }
 
 /**
  *
 **/
-int exists_date(int day, int month, int year))
+int exists_date(int day, int month, int year)
 {
     if(year < 1582 || year > 2400)
     {
@@ -91,6 +98,7 @@ int exists_date(int day, int month, int year))
 
 int main()
 {
-    printf("Tag des Jahres: %i\n", day_of_the_year(31, 12, 2018));
+    printf("%i", get_days_for_month(12, 2020));
+    //printf("Tag des Jahres: %i\n", day_of_the_year(31, 12, 2018));
     return 0;
 }
