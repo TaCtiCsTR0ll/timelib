@@ -10,17 +10,37 @@
 
 const int monthDays[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
+int main()
+{
+    printf("Day of year:    %i\n", day_of_the_year(12, 3, 2018));
+    printf("Is leapyear:    %i\n", isLeapyear(2020));
+    printf("Date exists:    %i\n", exists_date(1, 1, 1444));
+    printf("Days of Month:  %i\n", get_days_for_month(12, 2020));
+    printf("Tag des Jahres: %i\n", day_of_the_year(31, 12, 2018));
+    return 0;
+}
+
 /**
- *
+ * Returns the current day of the year.
  *
  **/
 int day_of_the_year(int day, int month, int year)
 {
     int dayOfYear = 0;
 
+    for(int i = 1; i < month; i++)
+    {
+        dayOfYear += get_days_for_month(i, year);
+    }
 
+    dayOfYear += day;
 
-    return 0;
+    if(isLeapyear(year) == 1 && month > 1)
+    {
+        dayOfYear++;
+    }
+
+    return dayOfYear;
 }
 
 /**
@@ -97,13 +117,4 @@ int exists_date(int day, int month, int year)
     {
         return 1;
     }
-}
-
-int main()
-{
-    printf("Is leapyear:    %i\n", isLeapyear(2020));
-    printf("Date exists:    %i\n", exists_date(1, 1, 1444));
-    printf("Days of Month:  %i\n", get_days_for_month(12, 2020));
-    printf("Tag des Jahres: %i\n", day_of_the_year(31, 12, 2018));
-    return 0;
 }
