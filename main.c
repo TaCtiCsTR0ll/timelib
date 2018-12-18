@@ -66,8 +66,10 @@ int isLeapyear(int year)
     }
 }
 
+
+
 /**
- *
+ * Returns the amount of days of the month in the specified year.
 **/
 int get_days_for_month(int month, int year)
 {
@@ -82,7 +84,8 @@ int get_days_for_month(int month, int year)
 }
 
 /**
- *
+ * Checks if the specified date is between the dates '01.01.1582' and '31.12.2400'.
+ * Returns 1 if true and 0 if false.
 **/
 int exists_date(int day, int month, int year)
 {
@@ -98,7 +101,9 @@ int exists_date(int day, int month, int year)
 
 int main()
 {
-    printf("%i", get_days_for_month(12, 2020));
-    //printf("Tag des Jahres: %i\n", day_of_the_year(31, 12, 2018));
+    printf("Is leapyear:    %i\n", isLeapyear(2020));
+    printf("Date exists:    %i\n", exists_date(1, 1, 1444));
+    printf("Days of Month:  %i\n", get_days_for_month(12, 2020));
+    printf("Tag des Jahres: %i\n", day_of_the_year(31, 12, 2018));
     return 0;
 }
