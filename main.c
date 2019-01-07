@@ -2,7 +2,7 @@
  * Autor: Sebastian Greger
  * Datum: 18.12.2018
  *
- * Beschreibung: Timelib!
+ * Beschreibung: Initial repository for a time library written in C.
  **/
 
 #include <stdio.h>
@@ -12,50 +12,50 @@ const int monthDays[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
 int main()
 {
-    printf("Day of year:    %i\n", day_of_the_year(12, 3, 2018));
-    printf("Is leapyear:    %i\n", isLeapyear(2020));
-    printf("Date exists:    %i\n", exists_date(1, 1, 1444));
-    printf("Days of Month:  %i\n", get_days_for_month(12, 2020));
-    printf("Tag des Jahres: %i\n", day_of_the_year(31, 12, 2018));
+    printf("(71)  Day of year:    %i\n", day_of_the_year(12, 3, 2018));
+    printf("(1)   Is leapyear:    %i\n", isLeapyear(2020));
+    printf("(0)   Date exists:    %i\n", exists_date(1, 1, 1444));
+    printf("(31)  Days of Month:  %i\n", get_days_for_month(12, 2020));
+    printf("(365) Tag des Jahres: %i\n", day_of_the_year(31, 12, 2018));
     return 0;
 }
 
 /**
- * Returns the current day of the year.
- *
+ * Returns the current day of the year or -1 if the date doesn't exists.
  **/
 int day_of_the_year(int day, int month, int year)
 {
-    int dayOfYear = 0;
-
-    for(int i = 1; i < month; i++)
+    if(exists_date(day, month, year))
     {
-        dayOfYear += get_days_for_month(i, year);
+        int dayOfYear = 0;
+
+        for(int i = 1; i < month; i++)
+        {
+            dayOfYear += get_days_for_month(i, year);
+        }
+
+        dayOfYear += day;
+
+        if(isLeapyear(year) == 1 && month > 1)
+        {
+            dayOfYear++;
+        }
+
+        return dayOfYear;
     }
-
-    dayOfYear += day;
-
-    if(isLeapyear(year) == 1 && month > 1)
+    else
     {
-        dayOfYear++;
+        return -1;
     }
-
-    return dayOfYear;
 }
 
 /**
- * Die Funktion ermittelt für ein übergebenes Jahr des gregorianischen
- * Kalenders, ob es sich um ein Schaltjahr handelt.
- *
- * year: Das zu überprüfende Jahr
- *
- * returns: '1', wenn Schaltjahr
- *          '0', wenn kein Schaltjahr
- *          '-1', wenn das Jahr vor dem Beginn des gregorianischen Kalenders liegt
+ * Returns 1 if the specified year is a leapyear and 0 if it isn't.
+ * If the year isn't withing the range of the gregorian calender -1 is returned.
 **/
 int isLeapyear(int year)
 {
-    if(year >= 1582)
+    if(year >= 1582 && year <= 2400)
     {
         if(year%4 == 0)
         {
@@ -89,19 +89,29 @@ int isLeapyear(int year)
 
 
 /**
- * Returns the amount of days of the month in the specified year.
+ * Returns the amount of days of the month in the specified year
+ * or -1 if the specified month doesn't exist.
 **/
 int get_days_for_month(int month, int year)
 {
-    int daysOfMonth = monthDays[month-1];
-
-    if(isLeapyear(year) == 1 && month == 2)
+    if(month >= 1 && month <= 12 && !(isLeapyear(year) == -1))
     {
-        daysOfMonth++;
-    }
+        int daysOfMonth = monthDays[month-1];
 
-    return daysOfMonth;
+        if(isLeapyear(year) == 1 && month == 2)
+        {
+            daysOfMonth++;
+        }
+
+        return daysOfMonth;
+    }
+    else
+    {
+        return -1;
+    }
 }
+
+
 
 /**
  * Checks if the specified date is between the dates '01.01.1582' and '31.12.2400'.
@@ -109,12 +119,15 @@ int get_days_for_month(int month, int year)
 **/
 int exists_date(int day, int month, int year)
 {
-    if(year < 1582 || year > 2400)
+    if(year >= 1582 && year <= 2400)
     {
-        return 0;
+        if(day >= 1 && day <= get_days_for_month(month, year))
+        {
+            return 1;
+        }
     }
     else
     {
-        return 1;
+        return 0;
     }
 }
