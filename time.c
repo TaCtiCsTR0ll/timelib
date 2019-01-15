@@ -1,3 +1,4 @@
+#include <stdio.h>
 
 const int monthDays[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
@@ -28,6 +29,32 @@ int day_of_the_year(int day, int month, int year)
     {
         return -1;
     }
+}
+
+/**
+ * Prompts the user for an input of a day, month and year.
+**/
+void input_date(int *day, int *month, int *year)
+{
+    int userDay = 0;
+    int userMonth = 0;
+    int userYear = 0;
+
+    {
+        printf("Geben Sie einen Tag ein: ");
+        scanf("%i", &userDay);
+
+        printf("Geben Sie einen Monat ein: ");
+        scanf("%i", &userMonth);
+
+        printf("Geben Sie einen Jahr ein: ");
+        scanf("%i", &userYear);
+    }
+    while(!(exists_date(userDay, userMonth, userYear)));
+
+    *day = userDay;
+    *month = userMonth;
+    *year = userYear;
 }
 
 /**

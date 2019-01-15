@@ -11,6 +11,12 @@
 
 int main()
 {
+    int day = 15, month = 1, year = 2019;
+
+    input_date(&day, & month, &year);
+
+    printf("(15)  Input_Date:     %i\n\n", day_of_the_year(day, month, year));
+
     printf("(71)  Day of year:    %i\n", day_of_the_year(12, 3, 2018));
     printf("(1)   Is leapyear:    %i\n", isLeapyear(2020));
     printf("(0)   Date exists:    %i\n", exists_date(1, 1, 1444));
