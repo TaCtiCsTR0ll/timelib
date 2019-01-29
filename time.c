@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "time.h"
 
 const int monthDays[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
@@ -40,6 +41,7 @@ void input_date(int *day, int *month, int *year)
     int userMonth = 0;
     int userYear = 0;
 
+    do
     {
         printf("Geben Sie einen Tag ein: ");
         scanf("%i", &userDay);
@@ -49,8 +51,7 @@ void input_date(int *day, int *month, int *year)
 
         printf("Geben Sie einen Jahr ein: ");
         scanf("%i", &userYear);
-    }
-    while(!(exists_date(userDay, userMonth, userYear)));
+    }while(!(exists_date(userDay, userMonth, userYear)));
 
     *day = userDay;
     *month = userMonth;

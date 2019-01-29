@@ -2,7 +2,7 @@
  * Autor: Sebastian Greger
  * Datum: 18.12.2018
  *
- * Beschreibung: Initial repository for a time library written in C.
+ * Beschreibung: Initial repository for a time library written in C#.
  **/
 
 #include <stdio.h>
@@ -11,7 +11,7 @@
 
 int main()
 {
-    int day = 15, month = 1, year = 2019;
+    int day = 0, month = 0, year = 0;
 
     input_date(&day, & month, &year);
 
