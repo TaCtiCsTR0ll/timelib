@@ -2,7 +2,7 @@
  * Autor: Sebastian Greger
  * Datum: 18.12.2018
  *
- * Beschreibung: Initial repository for a time library written in C#.
+ * Beschreibung: Initial repository for a time library written in C.
  **/
 
 #include <stdio.h>

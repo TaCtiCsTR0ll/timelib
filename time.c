@@ -124,7 +124,7 @@ int get_days_for_month(int month, int year)
 
 /**
  * Checks if the specified date is between the dates '01.01.1582' and '31.12.2400'.
- * Returns 1 if true and 0 if false.
+ * Returns 1 if true and 0 if false or the date is invalid.
 **/
 int exists_date(int day, int month, int year)
 {
@@ -133,6 +133,10 @@ int exists_date(int day, int month, int year)
         if(day >= 1 && day <= get_days_for_month(month, year))
         {
             return 1;
+        }
+        else
+        {
+            return 0;
         }
     }
     else
