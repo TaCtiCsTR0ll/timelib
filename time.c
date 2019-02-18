@@ -6,20 +6,23 @@ const int monthDays[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 /**
  * Returns the current day of the year or -1 if the date doesn't exists.
  **/
-int day_of_the_year(int day, int month, int year)
+int day_of_the_year(struct date date)
 {
-    if(exists_date(day, month, year))
+    struct date tempDate = date;
+
+    if(exists_date(date))
     {
         int dayOfYear = 0;
 
-        for(int i = 1; i < month; i++)
+        for(int i = 1; i < date.month; i++)
         {
-            dayOfYear += get_days_for_month(i, year);
+            tempDate.month = i;
+            dayOfYear += get_days_for_month(tempDate);
         }
 
-        dayOfYear += day;
+        dayOfYear += date.day;
 
-        if(isLeapyear(year) == 1 && month > 1)
+        if(isLeapyear(date) == 1 && date.month > 1)
         {
             dayOfYear++;
         }
@@ -34,43 +37,40 @@ int day_of_the_year(int day, int month, int year)
 
 /**
  * Prompts the user for an input of a day, month and year.
+ * Returns a date structure containing the inputted values.
 **/
-void input_date(int *day, int *month, int *year)
+struct date input_date()
 {
-    int userDay = 0;
-    int userMonth = 0;
-    int userYear = 0;
+    struct date date;
 
     do
     {
         printf("Geben Sie einen Tag ein: ");
-        scanf("%i", &userDay);
+        scanf("%i", &date.day);
 
         printf("Geben Sie einen Monat ein: ");
-        scanf("%i", &userMonth);
+        scanf("%i", &date.month);
 
         printf("Geben Sie einen Jahr ein: ");
-        scanf("%i", &userYear);
-    }while(!(exists_date(userDay, userMonth, userYear)));
+        scanf("%i", &date.year);
+    }while(!(exists_date(date)));
 
-    *day = userDay;
-    *month = userMonth;
-    *year = userYear;
+    return date;
 }
 
 /**
- * Returns 1 if the specified year is a leapyear and 0 if it isn't.
- * If the year isn't withing the range of the gregorian calender -1 is returned.
+ * Returns 1 if the year of the given date structure is a leapyear and 0 if it isn't.
+ * Returns -1 if the year isn't within the range of the gregorian calender.
 **/
-int isLeapyear(int year)
+int isLeapyear(struct date date)
 {
-    if(year >= 1582 && year <= 2400)
+    if(date.year >= 1582 && date.year <= 2400)
     {
-        if(year%4 == 0)
+        if(date.year%4 == 0)
         {
-            if(year%100 == 0)
+            if(date.year%100 == 0)
             {
-                if(year%400 == 0)
+                if(date.year%400 == 0)
                 {
                     return 1;
                 }
@@ -98,16 +98,17 @@ int isLeapyear(int year)
 
 
 /**
- * Returns the amount of days of the month in the specified year
- * or -1 if the specified month doesn't exist.
+ * Returns the amount of days in the month of the given date structure.
+ * Accepts months from 1 - 12 (January to December).
+ * Returns -1 if the specified month doesn't exist
 **/
-int get_days_for_month(int month, int year)
+int get_days_for_month(struct date date)
 {
-    if(month >= 1 && month <= 12 && !(isLeapyear(year) == -1))
+    if(date.month >= 1 && date.month <= 12 && !(isLeapyear(date) == -1))
     {
-        int daysOfMonth = monthDays[month-1];
+        int daysOfMonth = monthDays[date.month-1];
 
-        if(isLeapyear(year) == 1 && month == 2)
+        if(isLeapyear(date) == 1 && date.month == 2)
         {
             daysOfMonth++;
         }
@@ -123,14 +124,15 @@ int get_days_for_month(int month, int year)
 
 
 /**
- * Checks if the specified date is between the dates '01.01.1582' and '31.12.2400'.
- * Returns 1 if true and 0 if false or the date is invalid.
+ * Checks if the specified date is within the range of the gregorian calender
+ * and whether the day and month value are valid.
+ * Returns 1 if the date is valid and 0 if it is not.
 **/
-int exists_date(int day, int month, int year)
+int exists_date(struct date date)
 {
-    if(year >= 1582 && year <= 2400)
+    if(date.year >= 1582 && date.year <= 2400)
     {
-        if(day >= 1 && day <= get_days_for_month(month, year))
+        if(date.day >= 1 && date.day <= get_days_for_month(date))
         {
             return 1;
         }

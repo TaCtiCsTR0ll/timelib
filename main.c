@@ -11,16 +11,15 @@
 
 int main()
 {
-    int day = 0, month = 0, year = 0;
+    struct date date;
 
-    input_date(&day, & month, &year);
+    date = input_date();
 
-    printf("(15)  Input_Date:     %i\n\n", day_of_the_year(day, month, year));
+    printf("Day of year:    %i\n", day_of_the_year(date));
+    printf("Is leapyear:    %i\n", isLeapyear(date));
+    printf("Date exists:    %i\n", exists_date(date));
+    printf("Days of Month:  %i\n", get_days_for_month(date));
+    printf("Tag des Jahres: %i\n", day_of_the_year(date));
 
-    printf("(71)  Day of year:    %i\n", day_of_the_year(12, 3, 2018));
-    printf("(1)   Is leapyear:    %i\n", isLeapyear(2020));
-    printf("(0)   Date exists:    %i\n", exists_date(1, 1, 1444));
-    printf("(31)  Days of Month:  %i\n", get_days_for_month(12, 2020));
-    printf("(365) Tag des Jahres: %i\n", day_of_the_year(31, 12, 2018));
     return 0;
 }

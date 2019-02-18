@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1550496101 source:g:\portablegit-2.19.2-32-bit.7z\timelib\main.c
+	<stdio.h>
+	<stdlib.h>
+	"time.h"
+
+1550495960 g:\portablegit-2.19.2-32-bit.7z\timelib\time.h
+
+1550495979 source:g:\portablegit-2.19.2-32-bit.7z\timelib\time.c
+	<stdio.h>
+	"time.h"
+
